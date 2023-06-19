@@ -27,7 +27,6 @@ $mediaquerys: (
   );
 
 } @else {
-  
   $breakpoints: (
     xl: 1440,
     lg: 1023,
@@ -40,11 +39,47 @@ $mediaquerys: (
     lg: "screen and (max-width: #{map-get($breakpoints,'lg')}px)",
     xl: "screen and (min-width: #{map-get($breakpoints,'xl')}px)",
   );
+
+
 }
 
 // @include mq(){}で書くとブレークポイントが反映される（初期値はmd）
 @mixin mq($mediaquery: md) {
   @media #{map-get($mediaquerys, $mediaquery)} {
     @content;
+  }
+}
+
+
+@if $startFrom == sp {
+  //pcで表示
+  .u-desktop {
+    display: none;
+    @include mq("md") {
+      display: block;
+    }
+  }
+
+  //モバイルのみ表示
+  .u-mobile {
+    @include mq("md") {
+      display: none;
+    }
+  }
+} @else {
+  //pcで表示
+  .u-desktop {
+    display: block;
+    @include mq("md") {
+      display: none;
+    }
+  }
+
+  //モバイルのみ表示
+  .u-mobile {
+    display: none;
+    @include mq("md") {
+      display: block;
+    }
   }
 }
