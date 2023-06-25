@@ -7,7 +7,7 @@ const mmq = require("gulp-merge-media-queries"); // メディアクエリをマ�
 const postcss = require("gulp-postcss"); // CSSの変換処理を行うためのモジュール
 const autoprefixer = require("autoprefixer"); // ベンダープレフィックスを自動的に追加するためのモジュール
 const cssdeclsort = require("css-declaration-sorter"); // CSSの宣言をソートするためのモジュール
-const cssnext = require("postcss-cssnext"); // 最新のCSS構文を使用可能にするためのモジュール
+const postcssPresetEnv = require("postcss-preset-env"); // 最新のCSS構文を使用可能にするためのモジュール
 const sourcemaps = require("gulp-sourcemaps"); // ソースマップを作成するためのモジュール
 const babel = require("gulp-babel"); // ES6+のJavaScriptをES5に変換するためのモジュール
 const imageminSvgo = require("imagemin-svgo"); // SVGを最適化するためのモジュール
@@ -68,13 +68,20 @@ const cssSass = () => {
       // ベンダープレフィックスを自動付与
       .pipe(
         postcss([
+          postcssPresetEnv(),
           autoprefixer({
             grid: true,
           }),
         ])
       )
       // CSSプロパティをアルファベット順にソートし、未来のCSS構文を使用可能に
-      .pipe(postcss([cssdeclsort({ order: "alphabetical" }), cssnext(browsers)]))
+      .pipe(
+        postcss([cssdeclsort({
+          order: "alphabetical"
+        })]
+        ),
+        postcssPresetEnv({ browsers: 'last 2 versions' })
+      )
       // メディアクエリを統合
       .pipe(mmq())
       // ソースマップを書き出し

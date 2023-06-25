@@ -110,3 +110,10 @@ select {
 select::-ms-expand {
   display: none;
 }
+
+/* ホバー */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s;
+}

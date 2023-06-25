@@ -41,21 +41,4 @@
   }
 }
 
-/* pcの電話番号発信対応 */
-a[href^="tel:"] {
-  @include mq("md") {
-    pointer-events: none;
-  }
-}
 
-/* ホバー */
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: opacity 0.3s;
-  @include mq("md") {
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-}
