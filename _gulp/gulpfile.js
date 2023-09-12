@@ -10,11 +10,11 @@ const cssdeclsort = require("css-declaration-sorter"); // CSSの宣言をソー�
 const postcssPresetEnv = require("postcss-preset-env"); // 最新のCSS構文を使用可能にするためのモジュール
 const sourcemaps = require("gulp-sourcemaps"); // ソースマップを作成するためのモジュール
 const babel = require("gulp-babel"); // ES6+のJavaScriptをES5に変換するためのモジュール
-const imageminSvgo = require("imagemin-svgo"); // SVGを最適化するためのモジュール
+// const imageminSvgo = require("imagemin-svgo"); // SVGを最適化するためのモジュール
 const browserSync = require("browser-sync"); // ブラウザの自動リロード機能を提供するためのモジュール
 const imagemin = require("gulp-imagemin"); // 画像を最適化するためのモジュール
-const imageminMozjpeg = require("imagemin-mozjpeg"); // JPEGを最適化するためのモジュール
-const imageminPngquant = require("imagemin-pngquant"); // PNGを最適化するためのモジュール
+// const imageminMozjpeg = require("imagemin-mozjpeg"); // JPEGを最適化するためのモジュール
+// const imageminPngquant = require("imagemin-pngquant"); // PNGを最適化するためのモジュール
 const changed = require("gulp-changed"); // 変更されたファイルのみを対象にするためのモジュール
 const del = require("del"); // ファイルやディレクトリを削除するためのモジュール
 const webp = require('gulp-webp');//webp変換
@@ -106,29 +106,29 @@ const imgImagemin = () => {
       // 変更があった画像のみ処理対象に
       .pipe(changed(destPath.img))
       // 画像を圧縮
-      .pipe(
-        imagemin(
-          [
-            // JPEG画像の圧縮設定
-            imageminMozjpeg({
-              quality: 80, // 圧縮品質（0〜100）
-            }),
-            // PNG画像の圧縮設定
-            imageminPngquant(),
-            // SVG画像の圧縮設定
-            imageminSvgo({
-              plugins: [
-                {
-                  removeViewbox: false, // viewBox属性を削除しない
-                },
-              ],
-            }),
-          ],
-          {
-            verbose: true, // 圧縮情報を表示
-          }
-        )
-      )
+      // .pipe(
+      //   imagemin(
+      //     [
+      //       // JPEG画像の圧縮設定
+      //       imageminMozjpeg({
+      //         quality: 80, // 圧縮品質（0〜100）
+      //       }),
+      //       // PNG画像の圧縮設定
+      //       imageminPngquant(),
+      //       // SVG画像の圧縮設定
+      //       imageminSvgo({
+      //         plugins: [
+      //           {
+      //             removeViewbox: false, // viewBox属性を削除しない
+      //           },
+      //         ],
+      //       }),
+      //     ],
+      //     {
+      //       verbose: true, // 圧縮情報を表示
+      //     }
+      //   )
+      // )
       .pipe(dest(destPath.img))
       .pipe(webp())//webpに変換
       // 圧縮済みの画像ファイルを出力先に保存
